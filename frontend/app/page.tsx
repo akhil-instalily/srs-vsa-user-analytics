@@ -240,7 +240,7 @@ export default function Home() {
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
-                  data={data.queryCategories?.categories || []}
+                  data={data.queryCategories?.categories || [] as any}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
@@ -279,7 +279,7 @@ export default function Home() {
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={clustering.clusters}
+                    data={clustering.clusters as any}
                     cx="50%"
                     cy="50%"
                     labelLine={false}
@@ -472,7 +472,7 @@ export default function Home() {
                   <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
                       <Pie
-                        data={sentiment.sentiment_distribution}
+                        data={sentiment.sentiment_distribution as any}
                         cx="50%"
                         cy="50%"
                         labelLine={false}
