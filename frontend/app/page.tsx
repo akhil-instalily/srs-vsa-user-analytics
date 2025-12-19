@@ -244,7 +244,7 @@ export default function Home() {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={(entry) => `${formatCategoryName(entry.category)}: ${entry.percentage}%`}
+                  label={(entry: any) => `${formatCategoryName(entry.category)}: ${entry.percentage}%`}
                   outerRadius={100}
                   fill="#8884d8"
                   dataKey="session_count"
@@ -283,7 +283,7 @@ export default function Home() {
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={(entry) => `${entry.percentage}%`}
+                    label={(entry: any) => `${entry.percentage}%`}
                     outerRadius={100}
                     fill="#8884d8"
                     dataKey="count"
@@ -476,7 +476,7 @@ export default function Home() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={(entry) => `${entry.category}: ${entry.percentage}%`}
+                        label={(entry: any) => `${entry.category}: ${entry.percentage}%`}
                         outerRadius={90}
                         fill="#8884d8"
                         dataKey="count"
