@@ -6,8 +6,9 @@ All endpoints are GET-only and accept filters as query parameters.
 
 from datetime import datetime
 from typing import Optional, Literal
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Depends
 from app.models.filters import AnalyticsFilters
+from app.auth import verify_jwt
 from app.analytics.kpis import (
     compute_session_metrics,
     compute_pain_point_clustering,
@@ -28,6 +29,7 @@ router = APIRouter()
 
 @router.get("/session-metrics")
 def get_session_metrics(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -82,6 +84,7 @@ def get_session_metrics(
 
 @router.get("/pain-point-clustering")
 def get_pain_point_clustering(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -140,6 +143,7 @@ def get_pain_point_clustering(
 
 @router.get("/volume-trends")
 def get_volume_trends(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -194,6 +198,7 @@ def get_volume_trends(
 
 @router.get("/user-engagement")
 def get_user_engagement(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -247,6 +252,7 @@ def get_user_engagement(
 
 @router.get("/user-retention")
 def get_user_retention(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -301,6 +307,7 @@ def get_user_retention(
 
 @router.get("/query-categories")
 def get_query_categories(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -353,6 +360,7 @@ def get_query_categories(
 
 @router.get("/returning-user-behavior")
 def get_returning_user_behavior(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -408,6 +416,7 @@ def get_returning_user_behavior(
 
 @router.get("/user-segmentation")
 def get_user_segmentation(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -463,6 +472,7 @@ def get_user_segmentation(
 
 @router.get("/time-patterns")
 def get_time_patterns(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -518,6 +528,7 @@ def get_time_patterns(
 
 @router.get("/conversation-length")
 def get_conversation_length(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -573,6 +584,7 @@ def get_conversation_length(
 
 @router.get("/platform-analytics")
 def get_platform_analytics(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",
@@ -628,6 +640,7 @@ def get_platform_analytics(
 
 @router.get("/sentiment-analysis")
 def get_sentiment_analysis(
+    _: dict = Depends(verify_jwt),
     start_date: datetime = Query(
         ...,
         description="Start date for analytics time range (ISO 8601 format)",

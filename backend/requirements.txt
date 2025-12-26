@@ -17,3 +17,6 @@ groq==1.0.0
 
 # Sentiment analysis (KPI #13)
 vaderSentiment==3.3.2
+
+# Auth0 JWT verification
+python-jose[cryptography]==3.3.0

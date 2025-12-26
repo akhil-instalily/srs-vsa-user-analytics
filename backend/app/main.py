@@ -16,12 +16,27 @@ app = FastAPI(
 )
 
 # CORS middleware for frontend access
+# Restrict to specific origins for security
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",      # Local development
+    "http://127.0.0.1:3000",      # Local development (alternative)
+    # Vercel production URLs
+    "https://frontend-eta-nine-57.vercel.app",
+    "https://srs-vsa-analytics.vercel.app",
+    "https://srs-vsa-analytics-instalily-dev.vercel.app",
+    # Allow all Vercel preview deployments for this project
+    "https://srs-vsa-analytics-1w1qw705y-instalily-dev.vercel.app",
+    "https://srs-vsa-analytics-3rzhmj65j-instalily-dev.vercel.app",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure appropriately for production
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["GET"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "Accept"],
+    expose_headers=["Content-Type", "Authorization"],
+    max_age=3600,
 )
 
 

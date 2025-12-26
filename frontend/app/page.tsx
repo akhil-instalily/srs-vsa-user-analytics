@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { format } from "date-fns";
 import {
   LineChart,
@@ -28,7 +29,7 @@ import {
 } from "lucide-react";
 import { FilterControls } from "@/components/FilterControls";
 import { StatCard } from "@/components/StatCard";
-import { fetchAllFastKPIs, fetchPainPointClustering, fetchSentimentAnalysis } from "@/lib/api";
+import { fetchAllFastKPIs, fetchPainPointClustering, fetchSentimentAnalysis, setAuthToken } from "@/lib/api";
 import type {
   AnalyticsFilters,
   DashboardData,
@@ -55,6 +56,8 @@ function formatCategoryName(name: string): string {
 }
 
 export default function Home() {
+  const { getAccessTokenSilently } = useAuth0();
+
   // Default to December 2025
   const [startDate, setStartDate] = useState("2025-12-01");
   const [endDate, setEndDate] = useState("2025-12-31");
@@ -85,6 +88,10 @@ export default function Home() {
       };
 
       try {
+        // Get access token and set it for API calls
+        const token = await getAccessTokenSilently();
+        setAuthToken(token);
+
         // Fetch fast KPIs immediately
         const fastData = await fetchAllFastKPIs(filters);
         setData({
@@ -111,7 +118,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, [startDate, endDate, productContext, userType]);
+  }, [startDate, endDate, productContext, userType, getAccessTokenSilently]);
 
   const handleReset = () => {
     setStartDate("2025-12-01");
